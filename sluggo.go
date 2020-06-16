@@ -28,7 +28,7 @@ func NewDefaultOptions() *SlugOptions {
 	return &SlugOptions{
 		TrimSpaces:       true,
 		MaxLength:        0,
-		Case:             DefaultCase,
+		Case:             Lowercase,
 		WhiteSpaceSymbol: "_",
 		CharSymbol:       "-",
 	}
@@ -52,11 +52,11 @@ func GetSlugWithOpts(text string, opts *SlugOptions) string {
 		text = strings.ToUpper(text)
 	}
 
-	//	Remove unwanted characters, leaving only url safe symbols
-	text = whitelistCharsRegexp.ReplaceAllString(text, opts.CharSymbol)
-
 	//	Remove spaces
 	text = whiteSpaceRegexp.ReplaceAllString(text, opts.WhiteSpaceSymbol)
+
+	//	Remove unwanted characters, leaving only url safe symbols
+	text = whitelistCharsRegexp.ReplaceAllString(text, opts.CharSymbol)
 
 	//Truncate slug to required MaxLength, if MaxLength is 0 text will not be truncated
 	if len(text) > opts.MaxLength && opts.MaxLength > 0 {
