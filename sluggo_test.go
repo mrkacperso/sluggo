@@ -22,7 +22,7 @@ func TestGetSlug(t *testing.T) {
 		{name: "With dash", args: args{text:"foo-bar"}, want: "foo-bar"},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {Szekspira 1
+		t.Run(tt.name, func(t *testing.T) {
 			if got := GetSlug(tt.args.text); got != tt.want {
 				t.Errorf("GetSlug() = %v, want %v", got, tt.want)
 			}
