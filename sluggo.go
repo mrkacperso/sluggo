@@ -1,3 +1,5 @@
+//Copyright: 2020 Kacper Kazimierak
+
 package sluggo
 
 import (
@@ -67,28 +69,7 @@ func GetSlug(text string) string {
 	return GetSlugWithOpts(text, NewDefaultOptions())
 }
 
-// Return slug created using provided parameters:
-//TrimSpaces bool
-// If true spaces will be trimmed from both ends of the input text, default true.
-// If PreserveLength set to true - spaces will not be trimmed
-
-//Case int
-// Case conversion: sluggo.DefaultCase = 0, sluggo.Lowercase = 1, sluggo.Uppercase = 2, default Lowercase
-
-//SpaceSymbol string
-// Symbol for replacing space. URL safe symbols are; a-z A-Z 0-9 "." "-" "_" "~", default _
-
-//CharSymbol string
-// Symbol for replacing unwanted chars.  URL safe symbols are; a-z A-Z 0-9 "." "-" "_" "~", default -
-
-//MaxLength int
-// Trim text to this length
-
-//PreserveLength bool
-// By default neighbouring chars to replace will be replaced with 1 CharSymbol or SpaceSymbol,
-//for example: "foo  b@@@r" => "foo_b-r". If true input text and output text will be the same length,
-//for example (with default SpaceSymbol and CharSymbol): "foo  bar" => "foo__bar" instead of "foo_bar",
-//"foo b@@r" => "foo_b--r" instead of "foo_b-r"
+// Return slug created using parameters provided in *SlugOptions
 func GetSlugWithOpts(text string, opts *SlugOptions) string {
 
 	var spaceRegexp, charsRegexp *regexp.Regexp

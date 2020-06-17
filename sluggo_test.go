@@ -1,3 +1,5 @@
+//Copyright: 2020 Kacper Kazimierak
+
 package sluggo
 
 import (
@@ -123,7 +125,7 @@ func TestNewDefaultOptions(t *testing.T) {
 	}{
 		{name: "test defaults", want: &SlugOptions{
 			TrimSpaces:     true,
-			MaxLength:      0,
+			MaxLength:      32,
 			Case:           Lowercase,
 			SpaceSymbol:    "_",
 			CharSymbol:     "-",
