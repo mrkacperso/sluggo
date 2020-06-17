@@ -40,7 +40,72 @@ func TestGetSlugWithOpts(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
+		{name: "trimming text", args: args{
+			text: "Trim text to this length, if set to 0 text will not be trimmed, default false",
+			opts: &SlugOptions{
+				TrimSpaces:     true,
+				MaxLength:      32,
+				Case:           Lowercase,
+				SpaceSymbol:    "_",
+				CharSymbol:     "-",
+				PreserveLength: false,
+			},
+		}, want: "trim_text_to_this_length-_if_set"},
+		{name: "trimming text len 1", args: args{
+			text: "Trim text to this length, if set to 0 text will not be trimmed, default false",
+			opts: &SlugOptions{
+				TrimSpaces:     true,
+				MaxLength:      1,
+				Case:           Lowercase,
+				SpaceSymbol:    "_",
+				CharSymbol:     "-",
+				PreserveLength: false,
+			},
+		}, want: "t"},
+		{name: "trimming text shorter than limit", args: args{
+			text: "Trim",
+			opts: &SlugOptions{
+				TrimSpaces:     true,
+				MaxLength:      15,
+				Case:           Lowercase,
+				SpaceSymbol:    "_",
+				CharSymbol:     "-",
+				PreserveLength: false,
+			},
+		}, want: "trim"},
+		{name: "preserve len true", args: args{
+			text: "F&&",
+			opts: &SlugOptions{
+				TrimSpaces:     true,
+				MaxLength:      15,
+				Case:           Lowercase,
+				SpaceSymbol:    "_",
+				CharSymbol:     "-",
+				PreserveLength: true,
+			},
+		}, want: "f--"},
+		{name: "preserve len false", args: args{
+			text: "F&&",
+			opts: &SlugOptions{
+				TrimSpaces:     true,
+				MaxLength:      15,
+				Case:           Lowercase,
+				SpaceSymbol:    "_",
+				CharSymbol:     "-",
+				PreserveLength: false,
+			},
+		}, want: "f-"},
+		{name: "trim whitespaces", args: args{
+			text: "	Foo  ",
+			opts: &SlugOptions{
+				TrimSpaces:     true,
+				MaxLength:      15,
+				Case:           Lowercase,
+				SpaceSymbol:    "_",
+				CharSymbol:     "-",
+				PreserveLength: false,
+			},
+		}, want: "foo"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

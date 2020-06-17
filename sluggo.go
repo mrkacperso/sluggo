@@ -20,13 +20,13 @@ type SlugOptions struct {
 	// Symbol for replacing unwanted chars.  URL safe symbols are; a-z A-Z 0-9 "." "-" "_" "~", default -
 
 	MaxLength int
-	// Trim text to this length
+	// Trim text to this length, if set to 0 text will not be trimmed, default false
 
 	PreserveLength bool
 	// By default neighbouring chars to replace will be replaced with 1 CharSymbol or SpaceSymbol,
 	//for example: "foo  b@@@r" => "foo_b-r". If true input text and output text will be the same length,
 	//for example (with default SpaceSymbol and CharSymbol): "foo  bar" => "foo__bar" instead of "foo_bar",
-	//"foo b@@r" => "foo_b--r" instead of "foo_b-r"
+	//"foo b@@r" => "foo_b--r" instead of "foo_b-r", default false
 }
 
 const (
@@ -120,7 +120,7 @@ func GetSlugWithOpts(text string, opts *SlugOptions) string {
 
 	//Truncate slug to required MaxLength, if MaxLength is 0 text will not be truncated
 	if len(text) > opts.MaxLength && opts.MaxLength > 0 {
-		text = text[:opts.MaxLength-1]
+		text = text[:opts.MaxLength]
 	}
 
 	return text
