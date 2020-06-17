@@ -20,7 +20,7 @@ type SlugOptions struct {
 	// Symbol for replacing unwanted chars.  URL safe symbols are; a-z A-Z 0-9 "." "-" "_" "~", default -
 
 	MaxLength int
-	// Trim text to this length, if set to 0 text will not be trimmed, default false
+	// Trim text to this length, if set to 0 text will not be trimmed, default 32 chars
 
 	PreserveLength bool
 	// By default neighbouring chars to replace will be replaced with 1 CharSymbol or SpaceSymbol,
@@ -33,6 +33,7 @@ const (
 	DefaultCase = 0
 	Lowercase   = 1
 	Uppercase   = 2
+	DefaultMaxLength = 32
 )
 
 var (
@@ -46,7 +47,7 @@ var (
 func NewDefaultOptions() *SlugOptions {
 	return &SlugOptions{
 		TrimSpaces:     true,
-		MaxLength:      0,
+		MaxLength:      DefaultMaxLength,
 		Case:           Lowercase,
 		SpaceSymbol:    "_",
 		CharSymbol:     "-",
